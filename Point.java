@@ -26,4 +26,8 @@ public class Point{
     Point other = (Point)o;
     return (this.getX() == other.getX() && this.getY() == other.getY());
   }
+
+  public String toString(){
+    return "(" + this.getX() + "," + this.getY() + ")";
+  }
 }
