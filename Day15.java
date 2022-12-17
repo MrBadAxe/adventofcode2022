@@ -65,7 +65,8 @@ public class Day15{
         for(int j=k+1;j<z.size();j++){
           Day15Interval i1 = z.get(k);
           Day15Interval i2 = z.get(j);
-          if(i1.overlaps(i2)){
+          //System.out.println(i1.toString() + " ? " + i2.toString());
+          if(i1.merge(i2) != null){
             z.set(k,i1.merge(i2));
             z.remove(j);
             j--;

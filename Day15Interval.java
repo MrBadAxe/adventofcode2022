@@ -18,8 +18,18 @@ public class Day15Interval{
     return !(other.getLower() > this.getUpper() || other.getUpper() < this.getLower());
   }
 
+  public boolean isAdjacentTo(Day15Interval other){
+    if(this.overlaps(other)){
+      return false;
+    }else if(this.getLower() > other.getLower()){
+      return other.getUpper()+1==this.getLower();
+    }else{
+      return this.getUpper()+1==other.getLower();
+    }
+  }
+
   public Day15Interval merge(Day15Interval other){
-    if(!overlaps(other)){
+    if(!(this.overlaps(other) || this.isAdjacentTo(other))){
       return null;
     }else{
       return new Day15Interval(Math.min(this.getLower(),other.getLower()),Math.max(this.getUpper(),other.getUpper()));
