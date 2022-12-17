@@ -103,4 +103,29 @@ public class Day15{
     return yNoBeaconSpaces;
   }
 
+  public static long getPart02(String filepath, int xMax){
+    readInput(filepath);
+    buildSensorMap();
+
+    int beaconX = 0;
+    int beaconY = 0;
+
+    for(int k=0;k<xMax;k++){
+      ArrayList<Day15Interval> yNoBeaconIntervals = generateNoBeaconIntervalList(sensorMap,k);
+      if(yNoBeaconIntervals.size() == 1 && (yNoBeaconIntervals.get(0).getLower() <= 0) && (yNoBeaconIntervals.get(0).getUpper() >= xMax)){
+        //covers entire row, do nothing
+      }else{
+        Day15Interval i1 = yNoBeaconIntervals.get(0);
+        Day15Interval i2 = yNoBeaconIntervals.get(1);
+        if(i1.getUpper() + 2 == i2.getLower()){
+          beaconX = i2.getLower()-1;
+        }else{
+          beaconX = i1.getLower()-1;
+        }
+        beaconY = k;
+      }
+    }
+    return (long)beaconX*4000000 + (long)beaconY;
+  }
+
 }

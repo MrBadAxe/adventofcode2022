@@ -47,5 +47,8 @@ public class AdventOfCode2022{
     //System.out.println("Day 15 Part 01: " + Day15.getPart01("./input_day15_short.txt",10));
     System.out.println("Day 15 Part 01: " + Day15.getPart01("./input_day15.txt",2000000));
 
+    //System.out.println("Day 15 Part 02: " + Day15.getPart02("./input_day15_short.txt",20));
+    System.out.println("Day 15 Part 02: " + Day15.getPart02("./input_day15.txt",4000000));
+
   }
 }
