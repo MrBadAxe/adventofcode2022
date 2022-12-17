@@ -46,49 +46,40 @@ public class Day15{
     return Math.abs(a.getX() - b.getX()) + Math.abs(a.getY() - b.getY());
   }
 
-  public static int getPart01(String filepath, int row){
-    readInput(filepath);
-    buildSensorMap();
-    ArrayList<Day15Interval> yNoBeaconIntervals = new ArrayList<Day15Interval>();
-    for(Point p : sensorMap.keySet()){
-      System.out.print("closest beacon to (" + p.getX() + "," + p.getY() + ") is (" + sensorMap.get(p).getX() + "," + sensorMap.get(p).getY() + ") ");
-      //int taxicabDistance = Math.abs(p.getX() - sensorMap.get(p).getX()) + Math.abs(p.getY() - sensorMap.get(p).getY());
-      int taxicabDistance = getTaxicabDistance(p,sensorMap.get(p));
-      System.out.println("which is " + taxicabDistance + " units away");
+  public static ArrayList<Day15Interval> generateNoBeaconIntervalList(HashMap<Point,Point> map, int row){
+    ArrayList<Day15Interval> z = new ArrayList<Day15Interval>();
+    for(Point p : map.keySet()){
+      int taxicabDistance = getTaxicabDistance(p,map.get(p));
       int distToRow = Math.abs(p.getY() - row);
-      System.out.println("row " + row + " is distance " + distToRow + " from sensor");
       if(distToRow < taxicabDistance){
         int remain = taxicabDistance - distToRow;
         Day15Interval interval = new Day15Interval(p.getX()-remain,p.getX()+remain);
-        System.out.println("leaving " + remain + " from point of intersection");
-        System.out.println("which rules out beacons between " + interval.toString());
-        yNoBeaconIntervals.add(interval);
+        z.add(interval);
       }
-      System.out.println("");
     }
 
-    for(int k=0;k<yNoBeaconIntervals.size();k++){
-      System.out.println(yNoBeaconIntervals.get(k).toString());
-    }
-    System.out.println("");
-
-    for(int passes=0;passes<3;passes++){
-      for(int k=0;k<yNoBeaconIntervals.size()-1;k++){
-        for(int j=k+1;j<yNoBeaconIntervals.size();j++){
-          Day15Interval i1 = yNoBeaconIntervals.get(k);
-          Day15Interval i2 = yNoBeaconIntervals.get(j);
+    int oldSize = Integer.MAX_VALUE;
+    while(z.size() != oldSize){
+      oldSize = z.size();
+      for(int k=0;k<z.size()-1;k++){
+        for(int j=k+1;j<z.size();j++){
+          Day15Interval i1 = z.get(k);
+          Day15Interval i2 = z.get(j);
           if(i1.overlaps(i2)){
-            System.out.println(i1.toString()+"+"+i2.toString());
-            yNoBeaconIntervals.set(k,i1.merge(i2));
-            yNoBeaconIntervals.remove(j);
+            z.set(k,i1.merge(i2));
+            z.remove(j);
             j--;
-          }else{
-            System.out.println(i1.toString()+"/"+i2.toString());
           }
         }
-        System.out.println("");
       }
     }
+    return z;
+  }
+
+  public static int getPart01(String filepath, int row){
+    readInput(filepath);
+    buildSensorMap();
+    ArrayList<Day15Interval> yNoBeaconIntervals = generateNoBeaconIntervalList(sensorMap,row);
 
     System.out.println("");
     int yNoBeaconSpaces = 0;
