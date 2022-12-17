@@ -82,17 +82,14 @@ public class Day15{
     buildSensorMap();
     ArrayList<Day15Interval> yNoBeaconIntervals = generateNoBeaconIntervalList(sensorMap,row);
 
-    System.out.println("");
     int yNoBeaconSpaces = 0;
     for(Day15Interval interval : yNoBeaconIntervals){
-      System.out.println(interval.toString());
       yNoBeaconSpaces += interval.size();
     }
 
     ArrayList<Integer> xKnownSpaces = new ArrayList<Integer>();
     for(Point p : sensorMap.values()){
       if(p.getY() == row){
-        System.out.println(p.getX()+","+p.getY());
         int xKnown = p.getX();
         if(!xKnownSpaces.contains(xKnown)){
           xKnownSpaces.add(xKnown);
@@ -100,7 +97,7 @@ public class Day15{
       }
     }
 
-    return yNoBeaconSpaces;
+    return yNoBeaconSpaces - xKnownSpaces.size();
   }
 
   public static long getPart02(String filepath, int xMax){
