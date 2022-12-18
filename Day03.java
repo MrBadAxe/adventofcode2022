@@ -1,23 +1,19 @@
 //package org.mrbadaxe.AdventOfCode2022;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.util.List;
 import java.util.ArrayList;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class Day03{
-  private static ArrayList<String> rucksacks;
-
-  public static void readInput(String filepath){
+  public static List<String> readInput(String filepath){
+    List<String> lines = new ArrayList<String>();
     try{
-      BufferedReader console = new BufferedReader(new FileReader(filepath));
-      rucksacks = new ArrayList<String>();
-      String nextLine = null;
-      while((nextLine=console.readLine())!=null){
-        rucksacks.add(nextLine);
-      }
+      lines = Files.readAllLines(Path.of(filepath));
     }catch(java.io.IOException e){
       System.err.println("IOException: " + e.getMessage());
     }
+    return lines;
   }
 
   private static ArrayList<String> findCommonLetters(String a, String b){
@@ -31,7 +27,7 @@ public class Day03{
   }
 
   public static int getPart01(String filepath){
-    readInput(filepath);
+    List<String> rucksacks = readInput(filepath);
     int priorityTotal = 0;
     for(String rucksack : rucksacks){
       ArrayList<String> duplicatedItems = findCommonLetters(rucksack.substring(0,(rucksack.length()/2)),rucksack.substring(rucksack.length()/2));
@@ -43,7 +39,7 @@ public class Day03{
   }
 
   public static int getPart02(String filepath){
-    readInput(filepath);
+    List<String> rucksacks = readInput(filepath);
     int priorityTotal = 0;
 
     for(int k=0;k<rucksacks.size();k+=3){
