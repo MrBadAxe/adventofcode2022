@@ -1,31 +1,28 @@
 //package org.mrbadaxe.AdventOfCode2022;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.List;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class Day02{
   private static ArrayList<String> rounds;
 
-  public static void readInput(String filepath){
+  public static List<String> readInput(String filepath){
+    List<String> lines = new ArrayList<String>();
     try{
-      BufferedReader console = new BufferedReader(new FileReader(filepath));
-      rounds = new ArrayList<String>();
-      String nextLine = null;
-      while((nextLine=console.readLine())!=null){
-        rounds.add(nextLine);
-      }
+      lines = Files.readAllLines(Path.of(filepath));
     }catch(java.io.IOException e){
       System.err.println("IOException: " + e.getMessage());
     }
+    return lines;
   }
 
   public static int getPart01(String filepath){
-    readInput(filepath);
+    List<String> rounds = readInput(filepath);
     int totalScore = 0;
     for(String round : rounds){
       String[] moves = round.split(" ");
-      //System.out.print(moves[0] + ":" + moves[1] + ":");
       int roundScore = 0;
       if(moves[1].equals("X")){  //you pick rock
         roundScore += 1;
@@ -39,18 +36,16 @@ public class Day02{
         roundScore += 3;
         if(moves[0].equals("B")){ roundScore += 6; }else if(moves[0].equals("C")){ roundScore += 3; }
       }
-      //System.out.println(roundScore);
       totalScore += roundScore;
     }
     return totalScore;
   }
 
   public static int getPart02(String filepath){
-    readInput(filepath);
+    List<String> rounds = readInput(filepath);
     int totalScore = 0;
     for(String round : rounds){
       String[] moves = round.split(" ");
-      //System.out.print(moves[0] + ":" + moves[1] + ":");
       int roundScore = 0;
       if(moves[1].equals("X")){  //you must lose
         roundScore += 0;
@@ -70,7 +65,6 @@ public class Day02{
         else if(moves[0].equals("B")){ roundScore += 3; }
         else if(moves[0].equals("C")){ roundScore += 1; }
       }
-      //System.out.println(roundScore);
       totalScore += roundScore;
     }
     return totalScore;
