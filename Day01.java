@@ -1,33 +1,38 @@
 //package org.mrbadaxe.AdventOfCode2022;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Day01{
-  private static ArrayList<Integer> elfCalorieCounts;
 
-  public static void readInput(String filepath){
+  public static List<String> readInput(String filepath){
+    List<String> lines = new ArrayList<String>();
     try{
-      BufferedReader console = new BufferedReader(new FileReader(filepath));
-      elfCalorieCounts = new ArrayList<Integer>();
-      String nextLine = null;
-      int nextCalorieCount = 0;
-      while((nextLine=console.readLine())!=null){
-        if(nextLine.equals("")){
-          elfCalorieCounts.add(nextCalorieCount);
-          nextCalorieCount = 0;
-        }else{
-          nextCalorieCount += Integer.parseInt(nextLine);
-        }
-      }
+      lines = Files.readAllLines(Path.of(filepath));
     }catch(java.io.IOException e){
       System.err.println("IOException: " + e.getMessage());
     }
+    return lines;
+  }
+
+  public static ArrayList<Integer> generateElfCalorieCountsList(List<String> lines){
+    ArrayList<Integer> elfCalorieCounts = new ArrayList<Integer>();
+    int nextCalorieCount = 0;
+    for(String line : lines){
+      if(line.equals("")){
+        elfCalorieCounts.add(nextCalorieCount);
+        nextCalorieCount = 0;
+      }else{
+        nextCalorieCount += Integer.parseInt(line);
+      }
+    }
+    return elfCalorieCounts;
   }
 
   public static int getPart01(String filepath){
-    readInput(filepath);
+    ArrayList<Integer> elfCalorieCounts = generateElfCalorieCountsList(readInput(filepath));
     int maxCalorieCount = 0;
     for(Integer i : elfCalorieCounts){
       maxCalorieCount = (i > maxCalorieCount) ? i : maxCalorieCount;
@@ -36,12 +41,11 @@ public class Day01{
   }
 
   public static int getPart02(String filepath){
-    readInput(filepath);
+    ArrayList<Integer> elfCalorieCounts = generateElfCalorieCountsList(readInput(filepath));
 
     int[] top3 = {0,0,0};
 
     for(Integer i : elfCalorieCounts){
-      //System.out.println(i);
       top3[2] = (i > top3[2]) ? i : top3[2];
       if(top3[2] > top3[1]){
         int x = top3[1];
@@ -54,7 +58,6 @@ public class Day01{
         top3[1] = x;
       }
     }
-    //System.out.println(top3[0]+" "+top3[1]+" "+top3[2]);
     return top3[0]+top3[1]+top3[2];
   }
 }
