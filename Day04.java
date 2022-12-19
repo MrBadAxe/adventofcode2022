@@ -1,24 +1,8 @@
 //package org.mrbadaxe.AdventOfCode2022;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.util.ArrayList;
+import java.util.List;
 
 public class Day04{
-  private static ArrayList<String> assignmentPairs;
-
-  public static void readInput(String filepath){
-    try{
-      BufferedReader console = new BufferedReader(new FileReader(filepath));
-      assignmentPairs = new ArrayList<String>();
-      String nextLine = null;
-      while((nextLine=console.readLine())!=null){
-        assignmentPairs.add(nextLine);
-      }
-    }catch(java.io.IOException e){
-      System.err.println("IOException: " + e.getMessage());
-    }
-  }
 
   private static boolean isFullyContained(int al, int au, int bl, int bu){
     if(al > bl){ return isFullyContained(bl,bu,al,au); }
@@ -38,8 +22,8 @@ public class Day04{
     return false;
   }
 
-  public static int getPart01(String filepath){
-    readInput(filepath);
+  public static int getPart01(List<String> input){
+    List<String> assignmentPairs = input;
     int countFullyContained = 0;
     for(String assignmentPair : assignmentPairs){
       String[] ranges = assignmentPair.split("[,-]");
@@ -48,8 +32,8 @@ public class Day04{
     return countFullyContained;
   }
 
-  public static int getPart02(String filepath){
-    readInput(filepath);
+  public static int getPart02(List<String> input){
+    List<String> assignmentPairs = input;
     int countOverlaps = 0;
     for(String assignmentPair : assignmentPairs){
       String[] ranges = assignmentPair.split("[,-]");
