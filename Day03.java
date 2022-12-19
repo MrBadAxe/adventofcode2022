@@ -2,20 +2,9 @@
 
 import java.util.List;
 import java.util.ArrayList;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 public class Day03{
-  public static List<String> readInput(String filepath){
-    List<String> lines = new ArrayList<String>();
-    try{
-      lines = Files.readAllLines(Path.of(filepath));
-    }catch(java.io.IOException e){
-      System.err.println("IOException: " + e.getMessage());
-    }
-    return lines;
-  }
-
+  
   private static ArrayList<String> findCommonLetters(String a, String b){
     ArrayList<String> z = new ArrayList<String>();
     for(String s : a.split("")){
@@ -26,8 +15,8 @@ public class Day03{
     return z;
   }
 
-  public static int getPart01(String filepath){
-    List<String> rucksacks = readInput(filepath);
+  public static int getPart01(List<String> input){
+    List<String> rucksacks = input;
     int priorityTotal = 0;
     for(String rucksack : rucksacks){
       ArrayList<String> duplicatedItems = findCommonLetters(rucksack.substring(0,(rucksack.length()/2)),rucksack.substring(rucksack.length()/2));
@@ -38,8 +27,8 @@ public class Day03{
     return priorityTotal;
   }
 
-  public static int getPart02(String filepath){
-    List<String> rucksacks = readInput(filepath);
+  public static int getPart02(List<String> input){
+    List<String> rucksacks = input;
     int priorityTotal = 0;
 
     for(int k=0;k<rucksacks.size();k+=3){

@@ -2,24 +2,11 @@
 
 import java.util.ArrayList;
 import java.util.List;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 public class Day02{
-  private static ArrayList<String> rounds;
 
-  public static List<String> readInput(String filepath){
-    List<String> lines = new ArrayList<String>();
-    try{
-      lines = Files.readAllLines(Path.of(filepath));
-    }catch(java.io.IOException e){
-      System.err.println("IOException: " + e.getMessage());
-    }
-    return lines;
-  }
-
-  public static int getPart01(String filepath){
-    List<String> rounds = readInput(filepath);
+  public static int getPart01(List<String> input){
+    List<String> rounds = input;
     int totalScore = 0;
     for(String round : rounds){
       String[] moves = round.split(" ");
@@ -41,8 +28,8 @@ public class Day02{
     return totalScore;
   }
 
-  public static int getPart02(String filepath){
-    List<String> rounds = readInput(filepath);
+  public static int getPart02(List<String> input){
+    List<String> rounds = input;
     int totalScore = 0;
     for(String round : rounds){
       String[] moves = round.split(" ");
