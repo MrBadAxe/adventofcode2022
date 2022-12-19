@@ -1,30 +1,14 @@
 //package org.mrbadaxe.AdventOfCode2022;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.HashMap;
 
 public class Day15{
-  private static ArrayList<String> lines;
-  private static HashMap<Point,Point> sensorMap;
 
-  public static void readInput(String filepath){
-    try{
-      BufferedReader console = new BufferedReader(new FileReader(filepath));
-      lines = new ArrayList<String>();
-      String nextLine = null;
-      while((nextLine=console.readLine())!=null){
-        lines.add(nextLine);
-      }
-    }catch(java.io.IOException e){
-      System.err.println("IOException: " + e.getMessage());
-    }
-  }
-
-  public static void buildSensorMap(){
-    sensorMap = new HashMap<Point,Point>();
-    for(String str : lines){
+  public static HashMap<Point,Point> buildSensorMap(List<String> input){
+    HashMap<Point,Point> sensorMap = new HashMap<Point,Point>();
+    for(String str : input){
       String[] tokens = str.split(":");
       String sensor = tokens[0];
       String beacon = tokens[1];
@@ -39,7 +23,7 @@ public class Day15{
       Point beaconValue = new Point(beaconX, beaconY);
       sensorMap.put(sensorKey,beaconValue);
     }
-
+    return sensorMap;
   }
 
   public static int getTaxicabDistance(Point a, Point b){
@@ -65,7 +49,6 @@ public class Day15{
         for(int j=k+1;j<z.size();j++){
           Day15Interval i1 = z.get(k);
           Day15Interval i2 = z.get(j);
-          //System.out.println(i1.toString() + " ? " + i2.toString());
           if(i1.merge(i2) != null){
             z.set(k,i1.merge(i2));
             z.remove(j);
@@ -77,9 +60,8 @@ public class Day15{
     return z;
   }
 
-  public static int getPart01(String filepath, int row){
-    readInput(filepath);
-    buildSensorMap();
+  public static int getPart01(List<String> input, int row){
+    HashMap<Point,Point> sensorMap = buildSensorMap(input);
     ArrayList<Day15Interval> yNoBeaconIntervals = generateNoBeaconIntervalList(sensorMap,row);
 
     int yNoBeaconSpaces = 0;
@@ -100,9 +82,8 @@ public class Day15{
     return yNoBeaconSpaces - xKnownSpaces.size();
   }
 
-  public static long getPart02(String filepath, int xMax){
-    readInput(filepath);
-    buildSensorMap();
+  public static long getPart02(List<String> input, int xMax){
+    HashMap<Point,Point> sensorMap = buildSensorMap(input);
 
     int beaconX = 0;
     int beaconY = 0;
