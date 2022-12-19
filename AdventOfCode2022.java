@@ -15,6 +15,7 @@ public class AdventOfCode2022{
   }
 
   public static void main(String[] args){
+    /*
     System.out.println("Day 01 Part 01: " + Day01.getPart01(readInput("./input_day01.txt")));
     System.out.println("Day 01 Part 02: " + Day01.getPart02(readInput("./input_day01.txt")));
 
@@ -27,10 +28,9 @@ public class AdventOfCode2022{
     System.out.println("Day 04 Part 01: " + Day04.getPart01(readInput("./input_day04.txt")));
     System.out.println("Day 04 Part 02: " + Day04.getPart02(readInput("./input_day04.txt")));
     */
+    System.out.println("Day 05 Part 01: " + Day05.getPart01(readInput("./input_day05.txt")));
+    System.out.println("Day 05 Part 02: " + Day05.getPart02(readInput("./input_day05.txt")));
     /*
-    System.out.println("Day 05 Part 01: " + Day05.getPart01("./input_day05.txt"));
-    System.out.println("Day 05 Part 02: " + Day05.getPart02("./input_day05.txt"));
-
     System.out.println("Day 06 Part 01: " + Day06.getPart01("./input_day06.txt"));
     System.out.println("Day 06 Part 02: " + Day06.getPart02("./input_day06.txt"));
 

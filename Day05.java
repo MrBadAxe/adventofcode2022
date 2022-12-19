@@ -1,39 +1,21 @@
 //package org.mrbadaxe.AdventOfCode2022;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 public class Day05{
-  private static ArrayList<Stack<String>> crateStacks;
-  private static ArrayList<String> crateMoves;
   private static final int CRATE_SPACING = 4;
 
-  public static void readInput(String filepath){
-    crateMoves = new ArrayList<String>();
-    try{
-      BufferedReader console = new BufferedReader(new FileReader(filepath));
-      String nextLine = null;
-      while((nextLine=console.readLine())!=null){
-        crateMoves.add(nextLine);
-      }
-    }catch(java.io.IOException e){
-      System.err.println("IOException: " + e.getMessage());
-    }
-
-    int separator = crateMoves.indexOf("");
-    //System.out.println(separator);
+  public static ArrayList<Stack<String>> initializeCrates(List<String> input){
+    int separator = input.indexOf("");
     ArrayList<String> pictureStacks = new ArrayList<String>();
-    while(separator > 0){
-      pictureStacks.add(0,crateMoves.get(0));
-      crateMoves.remove(0);
-      separator--;
+    for(int k=0;k<separator;k++){
+      pictureStacks.add(0,input.get(k));
     }
-    crateMoves.remove(0);
     pictureStacks.remove(0);
 
-    crateStacks = new ArrayList<Stack<String>>();
+    ArrayList<Stack<String>> crateStacks = new ArrayList<Stack<String>>();
     int stackCount = (pictureStacks.get(0).length()+1)/CRATE_SPACING;
 
     for(int k=0;k<stackCount;k++){
@@ -47,9 +29,18 @@ public class Day05{
       }
       crateStacks.add(stack);
     }
+    return crateStacks;
+  }
+  public static ArrayList<String> initializeMoveList(List<String> input){
+    int separator = input.indexOf("");
+    ArrayList<String> moveList = new ArrayList<String>();
+    for(int k=separator+1;k<input.size();k++){
+      moveList.add(input.get(k));
+    }
+    return moveList;
   }
 
-  public static String getStackString(){
+  public static String getStackString(ArrayList<Stack<String>> crateStacks){
     String z = "";
     for(Stack<String> stack : crateStacks){
       for(String str : stack){
@@ -60,8 +51,9 @@ public class Day05{
     return z;
   }
 
-  public static String getPart01(String filepath){
-    readInput(filepath);
+  public static String getPart01(List<String> input){
+    ArrayList<Stack<String>> crateStacks = initializeCrates(input);
+    ArrayList<String> crateMoves = initializeMoveList(input);
 
     for(String crateMove : crateMoves){
       String[] split = crateMove.split(" ");
@@ -80,8 +72,9 @@ public class Day05{
     return z;
   }
 
-  public static String getPart02(String filepath){
-    readInput(filepath);
+  public static String getPart02(List<String> input){
+    ArrayList<Stack<String>> crateStacks = initializeCrates(input);
+    ArrayList<String> crateMoves = initializeMoveList(input);
 
     for(String crateMove : crateMoves){
       String[] split = crateMove.split(" ");
