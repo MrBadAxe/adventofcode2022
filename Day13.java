@@ -1,24 +1,9 @@
 //package org.mrbadaxe.AdventOfCode2022;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Day13{
-  private static ArrayList<String> lines;
-
-  public static void readInput(String filepath){
-    try{
-      BufferedReader console = new BufferedReader(new FileReader(filepath));
-      lines = new ArrayList<String>();
-      String nextLine = null;
-      while((nextLine=console.readLine())!=null){
-        lines.add(nextLine);
-      }
-    }catch(java.io.IOException e){
-      System.err.println("IOException: " + e.getMessage());
-    }
-  }
 
   public static boolean isList(String packet){
     return (packet.length() > 0 && packet.charAt(0) == '[' && packet.charAt(packet.length()-1) == ']');
@@ -79,29 +64,26 @@ public class Day13{
     return 0;
   }
 
-  public static int getPart01(String filepath){
-    readInput(filepath);
+  public static int getPart01(List<String> input){
     int correctPairs = 0;
     int pairsIndex = 0;
-    while(lines.size() > 0){
+    while(pairsIndex * 3 < input.size()){
+      String left = input.get(pairsIndex*3);
+      String right = input.get(pairsIndex*3 + 1);
       pairsIndex++;
-      String left = lines.remove(0);
-      String right = lines.remove(0);
       int isOrdered = packetsOrdered(left,right);
       if(isOrdered >= 0){
         correctPairs+=pairsIndex;
       }
-      String blank = (lines.size() > 0 ? lines.remove(0) : "");
     }
     return correctPairs;
   }
 
-  public static int getPart02(String filepath){
-    readInput(filepath);
-    lines.add("[[2]]");
-    lines.add("[[6]]");
+  public static int getPart02(List<String> input){
+    input.add("[[2]]");
+    input.add("[[6]]");
     ArrayList<String> sortedPackets = new ArrayList<String>();
-    for(String str : lines){
+    for(String str : input){
       if(!str.equals("")){
         int insertIndex = 0;
         while(insertIndex < sortedPackets.size()){
