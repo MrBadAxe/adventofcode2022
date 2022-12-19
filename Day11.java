@@ -1,24 +1,10 @@
 //package org.mrbadaxe.AdventOfCode2022;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Day11{
   private static ArrayList<String> lines;
-
-  public static void readInput(String filepath){
-    try{
-      BufferedReader console = new BufferedReader(new FileReader(filepath));
-      lines = new ArrayList<String>();
-      String nextLine = null;
-      while((nextLine=console.readLine())!=null){
-        lines.add(nextLine);
-      }
-    }catch(java.io.IOException e){
-      System.err.println("IOException: " + e.getMessage());
-    }
-  }
 
   public static int parseLineIndex(String line){
     return Integer.parseInt(line.substring(7,line.length()-1));
@@ -61,24 +47,24 @@ public class Day11{
     return z;
   }
 
-  public static Day11Monkey[] gatherMonkeys(boolean worry){
+  public static Day11Monkey[] gatherMonkeys(List<String> input, boolean worry){
     Day11Monkey[] z = new Day11Monkey[8];
     int nextMonkeyDesc = 0;
     int monkeyDescLength = 6;
-    while(nextMonkeyDesc + monkeyDescLength <= lines.size()){
-      int index = parseLineIndex(lines.get(nextMonkeyDesc));
+    while(nextMonkeyDesc + monkeyDescLength <= input.size()){
+      int index = parseLineIndex(input.get(nextMonkeyDesc));
 
-      int[] polynomial = parseLineOperation(lines.get(nextMonkeyDesc + 2));
+      int[] polynomial = parseLineOperation(input.get(nextMonkeyDesc + 2));
       int ax2 = polynomial[0];
       int bx = polynomial[1];
       int c = polynomial[2];
 
-      int test = parseLineTest(lines.get(nextMonkeyDesc + 3));
-      int pass = parseLinePass(lines.get(nextMonkeyDesc + 4));
-      int fail = parseLineFail(lines.get(nextMonkeyDesc + 5));
+      int test = parseLineTest(input.get(nextMonkeyDesc + 3));
+      int pass = parseLinePass(input.get(nextMonkeyDesc + 4));
+      int fail = parseLineFail(input.get(nextMonkeyDesc + 5));
 
       z[index] = new Day11Monkey(ax2,bx,c,test,pass,fail,worry);
-      int[] startItems = parseLineStartItems(lines.get(nextMonkeyDesc + 1));
+      int[] startItems = parseLineStartItems(input.get(nextMonkeyDesc + 1));
       for(int k=0;k<startItems.length;k++){
         z[index].give(startItems[k]);
       }
@@ -89,10 +75,8 @@ public class Day11{
 
   }
 
-  public static long getPart01(String filepath){
-    readInput(filepath);
-
-    Day11Monkey[] monkeys = gatherMonkeys(false);
+  public static long getPart01(List<String> input){
+    Day11Monkey[] monkeys = gatherMonkeys(input,false);
     for(int passes=0;passes<20;passes++){
       for(int k=0;k<monkeys.length;k++){
         if(monkeys[k] != null){
@@ -111,24 +95,13 @@ public class Day11{
     return inspectCounts.get(inspectCounts.size()-1) * inspectCounts.get(inspectCounts.size()-2);
   }
 
-  public static long getPart02(String filepath){
-    readInput(filepath);
-
-    Day11Monkey[] monkeys = gatherMonkeys(true);
+  public static long getPart02(List<String> input){
+    Day11Monkey[] monkeys = gatherMonkeys(input,true);
     for(int passes=0;passes<10000;passes++){
       for(int k=0;k<monkeys.length;k++){
         if(monkeys[k] != null){
           monkeys[k].inspectAll(monkeys);
         }
-      }
-      if(false){
-        for(int k=0;k<monkeys.length;k++){
-          if(monkeys[k] != null){
-            System.out.print(monkeys[k].describeInventory());
-            System.out.println(" (" + monkeys[k].getInspectCount() + ")");
-          }
-        }
-        System.out.println("");
       }
     }
 
