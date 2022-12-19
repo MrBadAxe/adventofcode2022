@@ -1,8 +1,7 @@
 //package org.mrbadaxe.AdventOfCode2022;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Day10{
   private static LinkedList<String> lines;
@@ -20,8 +19,7 @@ public class Day10{
     }
   }
 
-  public static int getPart01(String filepath){
-    readInput(filepath);
+  public static int getPart01(List<String> input){
     int runningReadingTotal = 0;
 
     LinkedList<Integer> readClocks = new LinkedList<Integer>();
@@ -34,15 +32,17 @@ public class Day10{
 
     int registerX = 1;
     int clock = 1;
+    int instructionPointer = 0;
 
     int currentInstrClocks = 0;
     String instruction = "";
     String opcode = "";
     int instrParam = 0;
-    while(lines.size() > 0){
+    while(instructionPointer < input.size()){
       if(currentInstrClocks <= 0){
         registerX += instrParam;
-        instruction = lines.removeFirst();
+        instruction = input.get(instructionPointer);
+        instructionPointer++;
         opcode = instruction.substring(0,4);
         if(opcode.equals("noop")){
           currentInstrClocks = 1;
@@ -63,22 +63,22 @@ public class Day10{
     return runningReadingTotal;
   }
 
-  public static String getPart02(String filepath){
-    readInput(filepath);
-
+  public static String getPart02(List<String> input){
     LinkedList<Integer> readClocks = new LinkedList<Integer>();
     int registerX = 1;
     int clock = 1;
+    int instructionPointer = 0;
     String raster = "";
 
     int currentInstrClocks = 0;
     String instruction = "";
     String opcode = "";
     int instrParam = 0;
-    while(lines.size() > 0){
+    while(instructionPointer < input.size()){
       if(currentInstrClocks <= 0){
         registerX += instrParam;
-        instruction = lines.removeFirst();
+        instruction = input.get(instructionPointer);
+        instructionPointer++;
         opcode = instruction.substring(0,4);
         if(opcode.equals("noop")){
           currentInstrClocks = 1;
