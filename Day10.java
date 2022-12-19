@@ -6,19 +6,6 @@ import java.util.List;
 public class Day10{
   private static LinkedList<String> lines;
 
-  public static void readInput(String filepath){
-    try{
-      BufferedReader console = new BufferedReader(new FileReader(filepath));
-      lines = new LinkedList<String>();
-      String nextLine = null;
-      while((nextLine=console.readLine())!=null){
-        lines.add(nextLine);
-      }
-    }catch(java.io.IOException e){
-      System.err.println("IOException: " + e.getMessage());
-    }
-  }
-
   public static int getPart01(List<String> input){
     int runningReadingTotal = 0;
 
