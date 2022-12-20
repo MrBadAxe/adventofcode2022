@@ -23,15 +23,10 @@ public class Day16Valve{
   public List<Day16Valve> getLinks(){
     return this.links;
   }
-  public boolean isOpen(){
-    return this.openState;
-  }
-  public void open(){
-    this.openState = true;
-  }
 
   public String toString(){
-    String z = this.getName() + "(" + this.getFlowRate() + ")->";
+    String z = this.getName() + "(" + this.getFlowRate();
+    z += ")->";
     for(Day16Valve link : links){
       z += link.getName() + ",";
     }
