@@ -80,18 +80,27 @@ public class Day16ValveGraph{
     }
     return distances.get(to);
   }
-
-  public Day16ValveGraph move(String move){
-    Day16ValveGraph z = new Day16ValveGraph(this.valveGraph, this.getCurrentPos().getName(), this.getMinutesRemaining());
+  public Day16ValveGraph copy(){
+    Day16ValveGraph z = new Day16ValveGraph(this.valveGraph);
     z.releasePressure(this.getTotalPressureReleased());
     z.getOpened().addAll(this.getOpened());
+    for(String a : agents.keySet()){
+      z.addAgent(a,new Day16Agent(agents.get(a).getCurrentPos(), agents.get(a).getMinutesRemaining()));
+    }
+    return z;
+  }
 
-    z.minutesRemaining -= (getDistance(currentPos.getName(),move) + 1);
-    z.setCurrentPos(valveGraph.get(move));
+  public Day16ValveGraph move(String agentName, String move){
+    Day16ValveGraph z = this.copy();
+
+    Day16Agent agent = z.getAgent(agentName);
+    int dist = getDistance(agent.getCurrentPos().getName(),move);
+    agent.setCurrentPos(valveGraph.get(move));
+    agent.setMinutesRemaining(agent.getMinutesRemaining() - (dist+1));
     //System.out.println(z.getCurrentPos().toString());
-    if(!z.isOpen(z.getCurrentPos().getName())){
-      z.open(z.getCurrentPos().getName());
-      z.releasePressure(z.getCurrentPos().getFlowRate() * z.getMinutesRemaining());
+    if(!z.isOpen(agent.getCurrentPos().getName())){
+      z.open(agent.getCurrentPos().getName());
+      z.releasePressure(agent.getCurrentPos().getFlowRate() * agent.getMinutesRemaining());
     }
 
     return z;
