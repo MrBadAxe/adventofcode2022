@@ -6,28 +6,22 @@ import java.util.HashSet;
 
 public class Day16ValveGraph{
   private HashMap<String,Day16Valve> valveGraph;
-  private Day16Valve currentPos;
-  private int minutesRemaining;
+  //private Day16Valve currentPos;
+  //private int minutesRemaining;
   private int totalPressureReleased;
-  private Set<String> opened;
+  private List<String> opened;
+  private HashMap<String,Day16Agent> agents;
+  private HashMap<String,HashMap<String,Integer>> precomputedDistances;
 
-  public Day16ValveGraph(HashMap<String,Day16Valve> vg, String start, int timer){
+  public Day16ValveGraph(HashMap<String,Day16Valve> vg){
     this.valveGraph = vg;
-    this.currentPos = this.valveGraph.get(start);
-    this.minutesRemaining = timer;
+    //this.currentPos = this.valveGraph.get(start);
+    //this.minutesRemaining = timer;
     totalPressureReleased = 0;
-    opened = new HashSet<String>();
+    opened = new ArrayList<String>();
+    agents = new HashMap<String,Day16Agent>();
   }
 
-  public int getMinutesRemaining(){
-    return this.minutesRemaining;
-  }
-  public Day16Valve getCurrentPos(){
-    return this.currentPos;
-  }
-  public void setCurrentPos(Day16Valve valve){
-    this.currentPos = valve;
-  }
   public int getTotalPressureReleased(){
     return this.totalPressureReleased;
   }
@@ -43,11 +37,25 @@ public class Day16ValveGraph{
   public void open(String str){
     this.opened.add(str);
   }
-  public Set<String> getOpened(){
+  public List<String> getOpened(){
     return this.opened;
   }
   public String toString(){
-    return this.getCurrentPos().getName() + " " + this.getMinutesRemaining() + "s " + this.getTotalPressureReleased() + "pr";
+    String z = this.getTotalPressureReleased() + " | " + String.join(" ",opened) + " | ";
+    for(String a : agents.keySet()){
+      z += a + "@" + agents.get(a).getCurrentPos().getName() + ":" + agents.get(a).getMinutesRemaining() + " ";
+    }
+    return z;
+  }
+  public void addAgent(String name, Day16Agent agent){
+    this.agents.put(name,agent);
+  }
+  public Day16Agent getAgent(String name){
+    return this.agents.get(name);
+  }
+  public HashMap<String,Day16Agent> getAllAgents(){
+    return this.agents;
+  }
   }
 
   public int getDistance(String from, String to){
