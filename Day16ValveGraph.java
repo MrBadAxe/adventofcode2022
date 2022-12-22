@@ -56,6 +56,16 @@ public class Day16ValveGraph{
   public HashMap<String,Day16Agent> getAllAgents(){
     return this.agents;
   }
+  public boolean equals(Day16ValveGraph other){
+    boolean z = true;
+    /*
+    for(Day16Agent a : this.getAllAgents().values()){
+      if(!other.getAllAgents().values().contains(a)){
+        z &= false;
+      }
+    }
+    */
+    return z && (this.getOpened().containsAll(other.getOpened())) && (this.getTotalPressureReleased() == other.getTotalPressureReleased());
   }
 
   public int getDistance(String from, String to){
