@@ -27,7 +27,8 @@ public class Day16{
   }
 
   public static int getPart01(List<String> input){
-    Day16ValveGraph valveGraph = new Day16ValveGraph(generateValveGraph(input),"AA",30);
+    Day16ValveGraph valveGraph = new Day16ValveGraph(generateValveGraph(input));
+    valveGraph.addAgent("h",new Day16Agent(valveGraph.getValveGraph().get("AA"),30));
 
     List<Day16ValveGraph> states = new ArrayList<Day16ValveGraph>();
     states.add(valveGraph);
@@ -36,7 +37,7 @@ public class Day16{
     while(states.size() > 0){
       Day16ValveGraph current = states.remove(0);
       for(String str : current.getValveGraph().keySet()){
-        Day16ValveGraph potentialMove = current.move(str);
+        Day16ValveGraph potentialMove = current.move("h",str);
         //System.out.println(current.toString() + "->" + potentialMove.toString());
         best = Math.max(best,potentialMove.getTotalPressureReleased());
         if(potentialMove.getTotalPressureReleased() > current.getTotalPressureReleased()){
