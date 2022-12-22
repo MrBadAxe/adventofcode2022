@@ -51,6 +51,31 @@ public class Day16{
   }
 
   public static int getPart02(List<String> input){
-    
+    Day16ValveGraph valveGraph = new Day16ValveGraph(generateValveGraph(input));
+    valveGraph.addAgent("h",new Day16Agent(valveGraph.getValveGraph().get("AA"),26));
+    valveGraph.addAgent("e",new Day16Agent(valveGraph.getValveGraph().get("AA"),26));
+
+    List<Day16ValveGraph> states = new ArrayList<Day16ValveGraph>();
+    states.add(valveGraph);
+    int best = 0;
+    long start = System.currentTimeMillis();
+    while(states.size() > 0){
+      Day16ValveGraph current = states.remove(0);
+      for(String str : current.getValveGraph().keySet()){
+        if(current.getValveGraph().get(str).getFlowRate() > 0 && !current.isOpen(str)){
+          Day16ValveGraph potentialMove = current.move(((current.getAgent("e").getMinutesRemaining() > current.getAgent("h").getMinutesRemaining()) ? "e" : "h"),str);
+          System.out.print(states.size() + "\t");
+          System.out.println(current.toString() + "\t->\t" + potentialMove.toString());
+          best = Math.max(best,potentialMove.getTotalPressureReleased());
+          if(potentialMove.getTotalPressureReleased() > current.getTotalPressureReleased()){
+            states.add(0,potentialMove);
+          }
+
+        }
+      }
+    }
+    System.out.println("time: " + (System.currentTimeMillis() - start) + "ms");
+
+    return best;
   }
 }
