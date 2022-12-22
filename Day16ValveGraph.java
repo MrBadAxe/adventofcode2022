@@ -59,26 +59,37 @@ public class Day16ValveGraph{
   }
 
   public int getDistance(String from, String to){
-    HashMap<String,Integer> distances = new HashMap<String,Integer>();
-    int currentDistance = 0;
-    distances.put(from,currentDistance);
-    List<String> nextValves = new ArrayList<String>();
+    if(this.precomputedDistances == null){
+      precomputedDistances = new HashMap<String,HashMap<String,Integer>>();
+    }
+    if(precomputedDistances.containsKey(from) && precomputedDistances.get(from).containsKey(to)){
+      return precomputedDistances.get(from).get(to);
+    }else{
+      if(!precomputedDistances.containsKey(from)){
+        precomputedDistances.put(from,new HashMap<String,Integer>());
+      }
+      HashMap<String,Integer> distances = new HashMap<String,Integer>();
+      int currentDistance = 0;
+      distances.put(from,currentDistance);
+      List<String> nextValves = new ArrayList<String>();
 
-    while(!distances.containsKey(to)){
-      currentDistance++;
-      for(String str : distances.keySet()){
-        Day16Valve valveFrom = this.valveGraph.get(str);
-        for(Day16Valve valveTo : valveFrom.getLinks()){
-          if(!distances.containsKey(valveTo.getName())){
-            nextValves.add(valveTo.getName());
+      while(!distances.containsKey(to)){
+        currentDistance++;
+        for(String str : distances.keySet()){
+          Day16Valve valveFrom = this.valveGraph.get(str);
+          for(Day16Valve valveTo : valveFrom.getLinks()){
+            if(!distances.containsKey(valveTo.getName())){
+              nextValves.add(valveTo.getName());
+            }
           }
         }
+        while(nextValves.size() > 0){
+          distances.put(nextValves.remove(0),currentDistance);
+        }
       }
-      while(nextValves.size() > 0){
-        distances.put(nextValves.remove(0),currentDistance);
-      }
+      precomputedDistances.get(from).put(to,distances.get(to));
+      return distances.get(to);
     }
-    return distances.get(to);
   }
   public Day16ValveGraph copy(){
     Day16ValveGraph z = new Day16ValveGraph(this.valveGraph);
