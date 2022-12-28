@@ -24,18 +24,13 @@ public class Day20{
 
   public static ArrayList<LongPoint> mix(ArrayList<LongPoint> input){
     for(int k=0;k<input.size();k++){
-      if(k%100==0){System.out.print(k+" ");}
+      //if(k%100==0){System.out.print(k+" ");}
       input = rotateToIndex(input,k);
-      //System.out.println(input.toString());
       LongPoint p = input.remove(0);
-      //System.out.println(input.toString());
       for(long j = 0; j < Math.abs(p.getY())%input.size(); j++){
         input = (p.getY() > 0 ? rotateLeft(input) : rotateRight(input));
-        //System.out.println(input.toString());
       }
       input.add(0,p);
-      //System.out.println(input.toString());
-      //System.out.println("");
     }
     return input;
   }
@@ -49,7 +44,6 @@ public class Day20{
     while(ciphertext.get(0).getY() != 0){
       ciphertext = rotateLeft(ciphertext);
     }
-    //System.out.println(ciphertext.toString());
 
     long n1 = ciphertext.get(1000%ciphertext.size()).getY();
     long n2 = ciphertext.get(2000%ciphertext.size()).getY();
@@ -73,7 +67,6 @@ public class Day20{
     while(ciphertext.get(0).getY() != 0){
       ciphertext = rotateLeft(ciphertext);
     }
-    //System.out.println(ciphertext.toString());
 
     long n1 = ciphertext.get(1000%ciphertext.size()).getY();
     long n2 = ciphertext.get(2000%ciphertext.size()).getY();
