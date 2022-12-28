@@ -45,7 +45,6 @@ public class Day21{
         k = 1L;
       }
       monkeys.put("humn",new Day21ConstMonkey(total+k));
-      System.out.print((total + k) + " ");
       diff = monkeys.get("root").yell(monkeys);
     }
     return (total+k);
