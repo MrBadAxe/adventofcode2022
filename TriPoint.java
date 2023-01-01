@@ -33,6 +33,11 @@ public class TriPoint{
     return (this.getX() == other.getX() && this.getY() == other.getY() && this.getZ() == other.getZ());
   }
 
+  @Override
+  public int hashCode(){
+    return (this.x * 1024 * 1024) + (this.y * 1024) + this.z;
+  }
+
   public String toString(){
     return "(" + this.getX() + "," + this.getY() + "," + this.getZ() + ")";
   }
