@@ -10,29 +10,17 @@ public class Day22Grid{
 
   private final int WIDTH;
   private final int HEIGHT;
-  private final int REGION_EDGE_LENGTH;
   private char[][] grid;
-  private boolean isCube;
 
-  public Day22Grid(int h, int w, boolean wrap){
+  public Day22Grid(int h, int w){
     this.WIDTH = w;
     this.HEIGHT = h;
-    this.REGION_EDGE_LENGTH = calculateRegionEdgeLength(h,w);
-    this.isCube = wrap;
     grid = new char[HEIGHT][WIDTH];
     for(int col=0;col<WIDTH;col++){
       for(int row=0;row<HEIGHT;row++){
         this.set(row,col,VOID);
       }
     }
-  }
-
-  private int calculateRegionEdgeLength(int h, int w){
-    return (w == 0 ? h : calculateRegionEdgeLength(w, h % w));
-  }
-
-  public Day22Grid(int h, int w){
-    this(h,w,false);
   }
 
   public int height(){
@@ -56,10 +44,6 @@ public class Day22Grid{
   }
 
   public TriPoint neighbor(TriPoint t){
-    return this.isCube ? flatNeighbor(t) : flatNeighbor(t);
-  }
-
-  public TriPoint flatNeighbor(TriPoint t){
     int row = t.getX();
     int col = t.getY();
     int facing = t.getZ();
