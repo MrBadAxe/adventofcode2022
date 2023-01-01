@@ -64,15 +64,12 @@ public class Day22Cube{
     switch(facing){
       case FACING_RIGHT:
         if(cellCol + 1 < EDGE_LENGTH){
-          System.out.println("right: doesn't leave the face");
+          //System.out.println("right: doesn't leave the face");
           return new TriPoint(absRow,((absCol+1)%netWidth),facing);
-        }/*else if(this.get(absRow,((absCol+1)%netWidth)) != Day22Cube.VOID){
-          System.out.println("right: doesn't cross a void (" + this.get(absRow,((absCol+1)%netWidth)) + ")");
-          return new TriPoint(absRow,((absCol+1)%netWidth),facing);
-        }*/else{
-          System.out.println("right: crosses a void");
+        }else{
+          //System.out.println("right: crosses a void");
           TriPoint link = edges.get(new TriPoint(faceRow,faceCol,facing));
-          System.out.println(link.toString());
+          //System.out.println(link.toString());
           newFacing = link.getZ();
           switch(newFacing){
             case FACING_RIGHT:
@@ -96,12 +93,9 @@ public class Day22Cube{
         }
       case FACING_DOWN:
         if(cellRow + 1 < EDGE_LENGTH){
-          System.out.println("down: doesn't leave the face");
+          //System.out.println("down: doesn't leave the face");
           return new TriPoint(((absRow+1)%netHeight),absCol,facing);
-        }/*else if(this.get(((absRow+1)%netHeight),absCol) != Day22Cube.VOID){
-          System.out.println("down: doesn't cross a void");
-          return new TriPoint(((absRow+1)%netHeight),absCol,facing);
-        }*/else{
+        }else{
           TriPoint link = edges.get(new TriPoint(faceRow,faceCol,facing));
           newFacing = link.getZ();
           switch(newFacing){
@@ -126,12 +120,9 @@ public class Day22Cube{
         }
       case FACING_LEFT:
         if(cellCol - 1 >= 0){
-          System.out.println("left: doesn't leave the face");
+          //System.out.println("left: doesn't leave the face");
           return new TriPoint(absRow,((absCol+netWidth-1)%netWidth),facing);
-        }/*else if(this.get(absRow,((absCol+netWidth-1)%netWidth)) != Day22Cube.VOID){
-          System.out.println("left: doesn't cross a void");
-          return new TriPoint(absRow,((absCol+netWidth-1)%netWidth),facing);
-        }*/else{
+        }else{
           TriPoint link = edges.get(new TriPoint(faceRow,faceCol,facing));
           newFacing = link.getZ();
           switch(newFacing){
@@ -156,12 +147,9 @@ public class Day22Cube{
         }
       case FACING_UP:
         if(cellRow - 1 >= 0){
-          System.out.println("up: doesn't leave the face");
+          //System.out.println("up: doesn't leave the face");
           return new TriPoint(((absRow+netHeight-1)%netHeight),absCol,facing);
-        }/*else if(this.get(((absRow+netHeight-1)%netHeight),absCol) != Day22Cube.VOID){
-          System.out.println("up: doesn't cross a void");
-          return new TriPoint(((absRow+netHeight-1)%netHeight),absCol,facing);
-        }*/else{
+        }else{
           TriPoint link = edges.get(new TriPoint(faceRow,faceCol,facing));
           newFacing = link.getZ();
           switch(newFacing){
