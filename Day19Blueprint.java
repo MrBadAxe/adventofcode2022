@@ -57,6 +57,20 @@ public class Day19Blueprint{
   }
 
   public void tick(){
+  public Day19Blueprint copy(){
+    Day19Blueprint z = new Day19Blueprint();
+    for(String str : resourceTypes){
+      z.setResourceCount(str,this.getResourceCount(str));
+      z.setRobotCount(str,this.getRobotCount(str));
+      z.setTimeElapsed(this.timeElapsed);
+      for(String cost : this.robotCosts.get(str).keySet()){
+        z.setRobotCost(str,cost,this.robotCosts.get(str).get(cost));
+      }
+    }
+    //System.out.println(z.toString());
+    //System.out.println(z.timeElapsed() == this.timeElapsed());
+    return z;
+  }
     for(String str : resourceTypes){
       resources.put(str,resources.get(str)+robotCounts.get(str));
     }
