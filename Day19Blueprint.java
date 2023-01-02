@@ -93,7 +93,6 @@ public class Day19Blueprint{
     return z;
   }
 
-  public void tick(){
   public Day19Blueprint copy(){
     Day19Blueprint z = new Day19Blueprint();
     for(String str : resourceTypes){
@@ -108,8 +107,26 @@ public class Day19Blueprint{
     //System.out.println(z.timeElapsed() == this.timeElapsed());
     return z;
   }
+
+  public void tick(String action){
+    //spend to build
+    if(!action.equals("gather")){
+      for(String str : robotCosts.get(action).keySet()){
+        resources.put(str,resources.get(str)-(robotCosts.get(action).get(str) == null ? 0 : robotCosts.get(action).get(str)));
+      }
+    }
+
+    //gather
     for(String str : resourceTypes){
       resources.put(str,resources.get(str)+robotCounts.get(str));
     }
+
+    //add robot
+    if(!action.equals("gather")){
+      robotCounts.put(action,robotCounts.get(action)+1);
+    }
+
+    //advance timer
+    timeElapsed++;
   }
 }
