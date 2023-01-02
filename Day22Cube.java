@@ -37,7 +37,7 @@ public class Day22Cube{
     this.cubeNet[faceRow][faceCol][cellRow][cellCol] = c;
   }
   public char get(int row, int col){
-    System.out.println(">" + row + " " + col);
+    //System.out.println(">" + row + " " + col);
     return this.cubeNet[row/EDGE_LENGTH][col/EDGE_LENGTH][row%EDGE_LENGTH][col%EDGE_LENGTH];
   }
   public void set(int row, int col, char c){
@@ -52,7 +52,7 @@ public class Day22Cube{
     int faceCol = absCol / EDGE_LENGTH;
     int cellRow = absRow % EDGE_LENGTH;
     int cellCol = absCol % EDGE_LENGTH;
-    System.out.println("(" + faceRow + "," + faceCol + "):(" + cellRow + "," + cellCol + ")");
+    //System.out.println("(" + faceRow + "," + faceCol + "):(" + cellRow + "," + cellCol + ")");
     int netHeight = cubeNet.length * EDGE_LENGTH;
     int netWidth = cubeNet[0].length * EDGE_LENGTH;
 

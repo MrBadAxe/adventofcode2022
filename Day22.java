@@ -93,8 +93,8 @@ public class Day22{
     String[] turns = dirList.split("[0-9]+");
 
     for(int k=0; k<moves.length; k++){
-      System.out.print(turns[k] + " ");
-      System.out.print(moves[k] + " ");
+      //System.out.print(turns[k] + " ");
+      //System.out.print(moves[k] + " ");
       int newFacing;
       switch((turns[k].length() > 0 ? turns[k].charAt(0) : ' ')){
         case 'L': newFacing = (pos.getZ() + 3)%4; break;
@@ -110,7 +110,7 @@ public class Day22{
           movesRemaining = 0;
         }else{
           pos = newPos;
-          System.out.println(pos.toString());
+          //System.out.println(pos.toString());
           movesRemaining--;
         }
       }
@@ -136,7 +136,7 @@ public class Day22{
 
     Day22Cube cube = generateCube(input);
     TriPoint pos = getStartingPosition(cube);
-    System.out.println(pos);
+    //System.out.println(pos);
     pos = navigate(cube, pos, dirList);
 
     return (1000 * (pos.getX()+1)) + (4 * (pos.getY()+1)) + pos.getZ();
