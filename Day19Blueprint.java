@@ -46,9 +46,25 @@ public class Day19Blueprint{
     return z;
   }
 
+  public int timeElapsed(){
+    return this.timeElapsed;
+  }
   public int getResourceCount(String resourceName){
     return resources.get(resourceName);
   }
+  private void setResourceCount(String resourceName, int count){
+    resources.put(resourceName,count);
+  }
+  public int getRobotCount(String resourceName){
+    return robotCounts.get(resourceName);
+  }
+  private void setRobotCount(String resourceName, int count){
+    robotCounts.put(resourceName,count);
+  }
+  private void setTimeElapsed(int elapsed){
+    this.timeElapsed = elapsed;
+  }
+
   public void setRobotCost(String robotType, String resource, int q){
     if(robotCosts.get(robotType) == null){
       robotCosts.put(robotType,new HashMap<String,Integer>());
