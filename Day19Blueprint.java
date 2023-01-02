@@ -35,13 +35,9 @@ public class Day19Blueprint{
     for(String str : resourceTypes){
       z += (str + " " + robotCounts.get(str) + " ");
     }
-    z += "| ROBOT COSTS: \n";
-    for(String str : resourceTypes){
-      z += "" + str + ": ";
-      for(String str2 : robotCosts.get(str).keySet()){
-        z += robotCosts.get(str).get(str2) + " " + str2 + " ";
-      }
-      z += "; ";
+    z += "| ACTIONS: ";
+    for(String str : this.availableBuildActions()){
+      z += str + " ";
     }
     return z;
   }
