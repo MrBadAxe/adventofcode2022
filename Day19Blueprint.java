@@ -71,6 +71,27 @@ public class Day19Blueprint{
     }
     robotCosts.get(robotType).put(resource,q);
   }
+  public boolean canBuildRobot(String resourceName){
+    boolean z = true;
+    HashMap<String,Integer> cost = robotCosts.get(resourceName);
+    for(String str : cost.keySet()){
+      z &= (resources.get(str) >= cost.get(str));
+    }
+    return z;
+  }
+
+  public List<String> availableBuildActions(){
+    List<String> z = new ArrayList<String>();
+    z.add("gather");
+    String bestRobot = "none";
+    for(String str : resourceTypes){
+      if(canBuildRobot(str)){
+        bestRobot = str;
+      }
+    }
+    if(!bestRobot.equals("none")){ z.add(bestRobot); }
+    return z;
+  }
 
   public void tick(){
   public Day19Blueprint copy(){
