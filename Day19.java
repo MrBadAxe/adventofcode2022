@@ -28,8 +28,35 @@ public class Day19{
 
   public static long getPart01(List<String> input){
     List<Day19Blueprint> blueprints = generateBlueprintsList(input);
-    for(Day19Blueprint bp : blueprints){
-      System.out.println(bp.toString());
+    for(int k=0;k<blueprints.size();k++){
+      Day19Blueprint bp = blueprints.get(k);
+      //System.out.println(bp.toString());
+      List<Day19Blueprint> processing = new ArrayList<Day19Blueprint>();
+      List<Day19Blueprint> completed = new ArrayList<Day19Blueprint>();
+      processing.add(bp);
+
+      while(processing.size() > 0){
+        Day19Blueprint current = processing.remove(0);
+        //System.out.println(current.timeElapsed() + " " + processing.size());
+        List<String> actions = current.availableBuildActions();
+        for(String str : actions){
+          Day19Blueprint newbp = current.copy();
+          newbp.tick(str);
+          //System.out.println(newbp.toString());
+          if(newbp.timeElapsed() >= 24){
+            //System.out.println("needs more");
+            completed.add(newbp);
+          }else{
+            processing.add(newbp);
+          }
+        }
+      }
+
+      int best = 0;
+      for(Day19Blueprint result : completed){
+        best = Math.max(best,result.getResourceCount("geodes"));
+      }
+      System.out.println(best * (k+1));
     }
     return 0;
   }
