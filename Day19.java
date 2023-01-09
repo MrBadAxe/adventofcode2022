@@ -26,6 +26,35 @@ public class Day19{
     return blueprints;
   }
 
+  public static List<String> cullActions(Day19MiningOperation op, List<String> actions, int maxTime){
+    //don't build an ore robot if we generate enough in a turn to build any robot
+    if(op.robots("ore") >= op.blueprint().maxRobotsNeeded("ore")){
+      actions.remove("ore");
+    }
+
+    //  don't build:
+    //  * anything, on (lastTurn - 1)
+    //  * anything but a geode robot, on (lastTurn - 2)
+    //  * a clay robot, on (lastTurn - 3)
+    if(op.timeElapsed() == maxTime - 3){
+      actions.remove("clay");
+    }else if(op.timeElapsed() == maxTime - 2){
+      actions.remove("clay");
+      actions.remove("ore");
+      actions.remove("obsidian");
+    }else if(op.timeElapsed() == maxTime - 1){
+      actions.remove("clay");
+      actions.remove("ore");
+      actions.remove("obsidian");
+      actions.remove("geodes");
+    }
+    // always build a geode robot if you can
+    if(actions.contains("geodes")){
+      actions.clear();
+      actions.add("geodes");
+    }
+    return actions;
+  }
   public static long getPart01(List<String> input){
     List<Day19Blueprint> blueprints = generateBlueprintsList(input);
     for(int k=0;k<blueprints.size();k++){
