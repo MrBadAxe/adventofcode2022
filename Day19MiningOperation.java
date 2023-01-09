@@ -71,6 +71,10 @@ public class Day19MiningOperation{
     robots.put(resourceName,count);
   }
 
+  public Day19Blueprint blueprint(){
+    return this.blueprint;
+  }
+
   public boolean canEventuallyBuildRobot(String resourceName){
     boolean z = true;
     for(String str : blueprint.resourceTypes){
