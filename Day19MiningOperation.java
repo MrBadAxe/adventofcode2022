@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 public class Day19MiningOperation{
 
-  private int timeElapsed;
+  private int timeRemaining;
 
   private HashMap<String,Integer> resources;
   private HashMap<String,Integer> robots;
   private Day19Blueprint blueprint;
 
-  public Day19MiningOperation(Day19Blueprint bp){
-    timeElapsed = 0;
+  public Day19MiningOperation(Day19Blueprint bp, int timer){
+    timeRemaining = timer;
     resources = new HashMap<String,Integer>();
     robots = new HashMap<String,Integer>();
     blueprint = bp;
@@ -24,8 +24,7 @@ public class Day19MiningOperation{
   }
 
   public Day19MiningOperation copy(){
-    Day19MiningOperation z = new Day19MiningOperation(this.blueprint);
-    z.setTimeElapsed(this.timeElapsed);
+    Day19MiningOperation z = new Day19MiningOperation(this.blueprint, this.timeRemaining);
     for(String str : this.blueprint.resourceTypes){
       z.setResources(str,this.resources(str));
       z.setRobots(str,this.robots(str));
@@ -51,11 +50,11 @@ public class Day19MiningOperation{
     return z;
   }
 
-  public int timeElapsed(){
-    return this.timeElapsed;
+  public int timeRemaining(){
+    return this.timeRemaining;
   }
   private void setTimeElapsed(int elapsed){
-    this.timeElapsed = elapsed;
+    this.timeRemaining = elapsed;
   }
 
   public int resources(String resourceName){
@@ -111,7 +110,7 @@ public class Day19MiningOperation{
     }
 
     //advance timer
-    timeElapsed++;
+    timeRemaining--;
   }
 
   public Day19MiningOperation endState(int maxTime){
