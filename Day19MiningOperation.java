@@ -34,17 +34,17 @@ public class Day19MiningOperation{
 
   public String toString(){
     String z = "";
-    z += "TIME: " + this.timeElapsed + " | ";
-    z += "RESOURCES: ";
+    z += "T: " + this.timeRemaining + " | ";
+    z += "RES: ";
     for(String str : this.blueprint.resourceTypes){
       z += (str + " " + resources.get(str) + " ");
     }
-    z += "| ROBOTS: ";
+    z += "| BOTS: ";
     for(String str : this.blueprint.resourceTypes){
       z += (str + " " + robots.get(str) + " ");
     }
-    z += "| ACTIONS: ";
-    for(String str : this.availableBuildActions()){
+    z += "| UNL: ";
+    for(String str : this.unlockedRobots()){
       z += str + " ";
     }
     return z;
