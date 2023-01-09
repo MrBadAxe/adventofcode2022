@@ -32,62 +32,97 @@ public class Day19{
       actions.remove("ore");
     }
 
-    //  don't build:
-    //  * anything, on (lastTurn - 1)
-    //  * anything but a geode robot, on (lastTurn - 2)
-    //  * a clay robot, on (lastTurn - 3)
-    if(op.timeElapsed() == maxTime - 3){
-      actions.remove("clay");
-    }else if(op.timeElapsed() == maxTime - 2){
-      actions.remove("clay");
-      actions.remove("ore");
-      actions.remove("obsidian");
-    }else if(op.timeElapsed() == maxTime - 1){
-      actions.remove("clay");
-      actions.remove("ore");
-      actions.remove("obsidian");
-      actions.remove("geodes");
+    //if you still don't have any geode robots, and don't have enough time to build one, cull the branch
+    /*
+    if(op.robots("geodes") == 0){
+      int addObs = op.resources("obsidian") + (op.robots("obsidian") * op.timeRemaining());
+      if(op.timeRemaining() < (op.blueprint().getRobotCost("geodes","obsidian") - addObs)){
+        actions.clear();
+      }
     }
-    // always build a geode robot if you can
-    if(actions.contains("geodes")){
-      actions.clear();
-      actions.add("geodes");
+    */
+
+    //if you still don't have any obsidian robots, and not enough time to gather
+    //enough obsidian to build a geode robot and mine at least 1 geode, cull the branch
+    /*
+    if(op.robots("obsidian") == 0){
+      if(op.timeRemaining() < (op.blueprint().getRobotCost("geodes","obsidian"))) {
+        actions.clear();
+      }
     }
+    */
+
     return actions;
   }
-  public static long getPart01(List<String> input){
-    List<Day19Blueprint> blueprints = generateBlueprintsList(input);
-    for(int k=0;k<blueprints.size();k++){
-      Day19Blueprint bp = blueprints.get(k);
-      //System.out.println(bp.toString());
-      List<Day19Blueprint> processing = new ArrayList<Day19Blueprint>();
-      List<Day19Blueprint> completed = new ArrayList<Day19Blueprint>();
-      processing.add(bp);
 
-      while(processing.size() > 0){
-        Day19Blueprint current = processing.remove(0);
-        //System.out.println(current.timeElapsed() + " " + processing.size());
-        List<String> actions = current.availableBuildActions();
-        for(String str : actions){
-          Day19Blueprint newbp = current.copy();
-          newbp.tick(str);
-          //System.out.println(newbp.toString());
-          if(newbp.timeElapsed() >= 24){
-            //System.out.println("needs more");
-            completed.add(newbp);
-          }else{
-            processing.add(newbp);
-          }
+  public static int calculateQualityLevel(Day19Blueprint bp, int maxTime){
+    List<Day19MiningOperation> processing = new ArrayList<Day19MiningOperation>();
+
+    Day19MiningOperation startop = new Day19MiningOperation(bp,maxTime);
+    processing.add(startop);
+
+    Day19MiningOperation bestop = null;
+
+    while(processing.size() > 0){
+      Day19MiningOperation cur = processing.remove(0);
+
+      //List<String> actions = cur.availableBuildActions();
+
+      //System.out.println(cur.toString());
+
+      List<String> actions = cur.unlockedRobots();
+      actions = cullActions(cur, actions, maxTime);
+
+
+      List<Day19MiningOperation> results = new ArrayList<Day19MiningOperation>();
+      for(String str : actions){
+        Day19MiningOperation newop = cur.copy();
+        while(!newop.canBuildRobotNow(str)){
+          newop.tick("gather");
+        }
+        newop.tick(str);
+        if(newop.timeRemaining() >= 0){
+          results.add(newop);
         }
       }
 
-      int best = 0;
-      for(Day19Blueprint result : completed){
-        best = Math.max(best,result.getResourceCount("geodes"));
+      if(results.size() == 0){
+        while(cur.timeRemaining() > 0){
+          cur.tick("gather");
+        }
+        results.add(cur);
       }
-      System.out.println(best * (k+1));
+
+      for(Day19MiningOperation op : results){
+        if(bestop == null || op.resources("geodes") > bestop.resources("geodes")){
+          bestop = op;
+        }
+        if(op.timeRemaining() > 0 && op.maxRemainingGeodes() > bestop.resources("geodes")){
+          processing.add(op);
+        }
+      }
     }
-    return 0;
+
+    return bestop.resources("geodes");
+  }
+
+  public static long getPart01(List<String> input){
+    int MAX_TIME = 24;
+
+    List<Day19Blueprint> blueprints = generateBlueprintsList(input);
+    int[] blueprintBestResult = new int[blueprints.size()];
+
+    for(int k=0;k<blueprints.size();k++){
+      Day19Blueprint bp = blueprints.get(k);
+      blueprintBestResult[k] = calculateQualityLevel(bp, MAX_TIME);
+      System.out.println(blueprintBestResult[k]);
+    }
+    int total = 0;
+    for(int k=0;k<blueprints.size();k++){
+      total += blueprintBestResult[k] * (k+1);
+    }
+
+    return total;
   }
 
 }
