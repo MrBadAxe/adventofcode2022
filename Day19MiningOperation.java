@@ -113,12 +113,8 @@ public class Day19MiningOperation{
     timeRemaining--;
   }
 
-  public Day19MiningOperation endState(int maxTime){
-    Day19MiningOperation z = this.copy();
-    while(z.timeElapsed() < maxTime){
-      z.tick("gather");
-    }
-    return z;
+  public int maxRemainingGeodes(){
+    return (this.timeRemaining() * (this.timeRemaining() + 1) / 2) + (this.timeRemaining() * this.robots("geodes")) + this.resources("geodes");
   }
 
 }
