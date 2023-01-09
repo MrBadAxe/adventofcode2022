@@ -71,8 +71,25 @@ public class Day19MiningOperation{
     robots.put(resourceName,count);
   }
 
+  public boolean canEventuallyBuildRobot(String resourceName){
+    boolean z = true;
+    for(String str : blueprint.resourceTypes){
+      z &= (blueprint.getRobotCost(resourceName,str) == 0 || robots.get(str) > 0);
+    }
+    return z;
+  }
+  public List<String> unlockedRobots(){
+    List<String> z = new ArrayList<String>();
+    for(int k=0;k<blueprint.resourceTypes.length;k++){
+      String str = blueprint.resourceTypes[blueprint.resourceTypes.length-(k+1)];
+      if(canEventuallyBuildRobot(str)){
+        z.add(str);
+      }
+    }
+    return z;
+  }
 
-  public boolean canBuildRobot(String resourceName){
+  public boolean canBuildRobotNow(String resourceName){
     boolean z = true;
     //HashMap<String,Integer> cost = robotCosts.get(resourceName);
     for(String str : blueprint.resourceTypes){
@@ -84,13 +101,14 @@ public class Day19MiningOperation{
     List<String> z = new ArrayList<String>();
     for(int k=0;k<blueprint.resourceTypes.length;k++){
       String str = blueprint.resourceTypes[blueprint.resourceTypes.length-(k+1)];
-      if(canBuildRobot(str)){
+      if(canBuildRobotNow(str)){
         z.add(str);
       }
     }
     z.add("gather");
     return z;
   }
+
   public void tick(String action){
     //spend to build
     if(!action.equals("gather")){
