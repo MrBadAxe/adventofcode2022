@@ -110,16 +110,13 @@ public class Day19{
     int MAX_TIME = 24;
 
     List<Day19Blueprint> blueprints = generateBlueprintsList(input);
-    int[] blueprintBestResult = new int[blueprints.size()];
 
-    for(int k=0;k<blueprints.size();k++){
-      Day19Blueprint bp = blueprints.get(k);
-      blueprintBestResult[k] = calculateQualityLevel(bp, MAX_TIME);
-      System.out.println(blueprintBestResult[k]);
-    }
     int total = 0;
     for(int k=0;k<blueprints.size();k++){
-      total += blueprintBestResult[k] * (k+1);
+      Day19Blueprint bp = blueprints.get(k);
+      int blueprintBestResult = calculateQualityLevel(bp, MAX_TIME);
+      //System.out.println(blueprintBestResult);
+      total += blueprintBestResult * (k+1);
     }
 
     return total;
