@@ -96,4 +96,21 @@ public class Day19{
     return total;
   }
 
+  public static long getPart02(List<String> input){
+    int MAX_TIME = 32;
+    int MAX_BLUEPRINTS = 3;
+
+    List<Day19Blueprint> blueprints = generateBlueprintsList(input);
+
+    int product = 1;
+    for(int k=0;k<MAX_BLUEPRINTS;k++){
+      Day19Blueprint bp = blueprints.get(k);
+      int blueprintBestResult = calculateQualityLevel(bp, MAX_TIME);
+      //System.out.println(blueprintBestResult);
+      product *= blueprintBestResult;
+    }
+
+    return product;
+  }
+
 }
