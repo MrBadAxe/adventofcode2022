@@ -78,7 +78,7 @@ public class Day19{
           bestop = op;
         }
         if(op.timeRemaining() > 0 && op.maxRemainingGeodes() > bestop.resources("geodes")){
-          processing.add(op);
+          processing.add(0,op);
         }
       }
     }
