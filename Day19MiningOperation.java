@@ -95,7 +95,6 @@ public class Day19MiningOperation{
 
   public boolean canBuildRobotNow(String resourceName){
     boolean z = true;
-    //HashMap<String,Integer> cost = robotCosts.get(resourceName);
     for(String str : blueprint.resourceTypes){
       z &= (resources.get(str) >= blueprint.getRobotCost(resourceName,str));
     }

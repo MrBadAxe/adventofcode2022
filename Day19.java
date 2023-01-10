@@ -27,7 +27,6 @@ public class Day19{
   }
 
   public static List<String> cullActions(Day19MiningOperation op, List<String> actions, int maxTime){
-    //don't build an ore robot if we generate enough in a turn to build any robot
     if(op.robots("ore") >= op.blueprint().maxRobotsNeeded("ore")){
       actions.remove("ore");
     }
@@ -46,13 +45,8 @@ public class Day19{
     while(processing.size() > 0){
       Day19MiningOperation cur = processing.remove(0);
 
-      //List<String> actions = cur.availableBuildActions();
-
-      //System.out.println(cur.toString());
-
       List<String> actions = cur.unlockedRobots();
       actions = cullActions(cur, actions, maxTime);
-
 
       List<Day19MiningOperation> results = new ArrayList<Day19MiningOperation>();
       for(String str : actions){
