@@ -32,26 +32,6 @@ public class Day19{
       actions.remove("ore");
     }
 
-    //if you still don't have any geode robots, and don't have enough time to build one, cull the branch
-    /*
-    if(op.robots("geodes") == 0){
-      int addObs = op.resources("obsidian") + (op.robots("obsidian") * op.timeRemaining());
-      if(op.timeRemaining() < (op.blueprint().getRobotCost("geodes","obsidian") - addObs)){
-        actions.clear();
-      }
-    }
-    */
-
-    //if you still don't have any obsidian robots, and not enough time to gather
-    //enough obsidian to build a geode robot and mine at least 1 geode, cull the branch
-    /*
-    if(op.robots("obsidian") == 0){
-      if(op.timeRemaining() < (op.blueprint().getRobotCost("geodes","obsidian"))) {
-        actions.clear();
-      }
-    }
-    */
-
     return actions;
   }
 
