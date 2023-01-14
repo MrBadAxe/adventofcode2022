@@ -21,6 +21,18 @@ public class Day23{
     }
     return elves;
   }
+
+  public static List<Point> getOtherEntryPoints(Day23Elf e){
+    Point proposed = e.getProposedMove();
+    List<Point> z = new ArrayList<Point>();
+    z.add(new Point(proposed.getX()-1,proposed.getY()));
+    z.add(new Point(proposed.getX()+1,proposed.getY()));
+    z.add(new Point(proposed.getX(),proposed.getY()-1));
+    z.add(new Point(proposed.getX(),proposed.getY()+1));
+    z.remove(e.currentPos());
+    return z;
+  }
+
   public static int getPart01(List<String> input){
     List<Day23Elf> elves = parseElvesPositions(input);
     return 0;
