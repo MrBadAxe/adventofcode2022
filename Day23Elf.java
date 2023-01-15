@@ -41,8 +41,8 @@ public class Day23Elf{
     boolean canMoveSouth = !(elves.contains(new Day23Elf(new Point(this.currentPos().getX()+1, this.currentPos().getY()))));
     boolean canMoveSouthEast = !(elves.contains(new Day23Elf(new Point(this.currentPos().getX()+1, this.currentPos().getY()+1))));
 
-    for(int k=checkDir;k<checkDir+3;k++){
-      switch(k%4){
+    for(int k=0;k<4;k++){
+      switch((checkDir+k)%4){
         case 0:
           if(canMoveNorthEast && canMoveNorth && canMoveNorthWest){
             proposedMove = new Point(this.currentPos().getX()-1, this.currentPos().getY());
