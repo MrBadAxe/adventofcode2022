@@ -33,6 +33,43 @@ public class Day23{
     return z;
   }
 
+  public static List<Day23Elf> nextRound(List<Day23Elf> elves){
+    for(Day23Elf elf : elves){
+      elf.propose(elves);
+      System.out.println(elf.toString());
+    }
+    for(Day23Elf elf : elves){
+      if(elf.getProposedMove() != null){
+        System.out.println("\t" + elf.toString() + "->" + getOtherEntryPoints(elf).toString());
+        List<Day23Elf> conflicts = new ArrayList<Day23Elf>();
+        conflicts.add(elf);
+        for(Point p : getOtherEntryPoints(elf)){
+          System.out.println(p.toString());
+          Day23Elf conflict = elves.indexOf(new Day23Elf(p)) != -1 ? elves.get(elves.indexOf(new Day23Elf(p))) : null;
+          if(conflict != null){
+            System.out.println("\t\t" + conflict.toString());
+            if(conflict.getProposedMove() != null && conflict.getProposedMove().equals(elf.getProposedMove())){
+              conflicts.add(conflict);
+            }
+          }
+        }
+        if(conflicts.size() > 1){
+          System.out.println("conflict!");
+          for(Day23Elf conf : conflicts){
+            System.out.println(conf.toString());
+            conf.reject();
+          }
+        }
+      }
+    }
+    for(Day23Elf elf : elves){
+      if(elf.getProposedMove() != null){
+        elf.accept();
+      }
+    }
+    return elves;
+  }
+
   public static int getPart01(List<String> input){
     List<Day23Elf> elves = parseElvesPositions(input);
     return 0;
