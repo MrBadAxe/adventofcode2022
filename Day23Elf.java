@@ -7,9 +7,9 @@ public class Day23Elf{
   private int checkDir;
 
   public Day23Elf(Point startPos){
-    currentPos = startPos;
-    proposedMove = null;
-    checkDir = 0;
+    this.currentPos = startPos;
+    this.proposedMove = null;
+    this.checkDir = 0;
   }
 
   public Point currentPos(){
@@ -73,14 +73,14 @@ public class Day23Elf{
   }
 
   private void clear(){
-    proposedMove = null;
-    checkDir = (checkDir+1)%4;
+    this.proposedMove = null;
+    this.checkDir = (this.checkDir+1)%4;
   }
   public void reject(){
     clear();
   }
   public void accept(){
-    currentPos = proposedMove;
+    this.currentPos = this.proposedMove;
     clear();
   }
 }
