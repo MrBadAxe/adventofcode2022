@@ -28,7 +28,7 @@ public class Day23Elf{
   }
 
   public String toString(){
-    return this.currentPos().toString() + (this.getProposedMove() == null ? " no prop" : (" prop " + this.getProposedMove().toString()));
+    return this.currentPos().toString() + (this.getProposedMove() == null ? "" : (" prop " + this.getProposedMove().toString()));
   }
 
   public void propose(List<Day23Elf> elves){
