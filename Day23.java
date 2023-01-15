@@ -72,6 +72,12 @@ public class Day23{
 
   public static int getPart01(List<String> input){
     List<Day23Elf> elves = parseElvesPositions(input);
+
+    System.out.println(elves.toString());
+    for(int k=0;k<2;k++){
+      elves = nextRound(elves);
+      System.out.println(elves.toString());
+    }
     return 0;
   }
 }
