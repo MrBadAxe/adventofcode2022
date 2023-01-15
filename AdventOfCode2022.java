@@ -70,19 +70,23 @@ public class AdventOfCode2022{
     //System.out.println("Day 17 Part 01: " + Day17.getPart01(readInput("./input_day17.txt")));
     //System.out.println("Day 17 Part 02: " + Day17.getPart02(readInput("./input_day17_short.txt")));
 
-    //System.out.println("Day 18 Part 01: " + Day18.getPart01(readInput("./input_day18.txt")));
-    //System.out.println("Day 18 Part 02: " + Day18.getPart02(readInput("./input_day18.txt")));
+    /*
+    System.out.println("Day 18 Part 01: " + Day18.getPart01(readInput("./input_day18.txt")));
+    System.out.println("Day 18 Part 02: " + Day18.getPart02(readInput("./input_day18.txt")));
 
-    System.out.println("Day 19 Part 01: " + Day19.getPart01(readInput("./input_day19_short.txt")));
+    System.out.println("Day 19 Part 01: " + Day19.getPart01(readInput("./input_day19.txt")));
+    System.out.println("Day 19 Part 02: " + Day19.getPart02(readInput("./input_day19.txt")));
 
-    //System.out.println("Day 20 Part 01: " + Day20.getPart01(readInput("./input_day20.txt")));
-    //System.out.println("Day 20 Part 02: " + Day20.getPart02(readInput("./input_day20.txt")));
+    System.out.println("Day 20 Part 01: " + Day20.getPart01(readInput("./input_day20.txt")));
+    System.out.println("Day 20 Part 02: " + Day20.getPart02(readInput("./input_day20.txt")));
 
-    //System.out.println("Day 21 Part 01: " + Day21.getPart01(readInput("./input_day21.txt")));
-    //System.out.println("Day 21 Part 02: " + Day21.getPart02(readInput("./input_day21.txt")));
+    System.out.println("Day 21 Part 01: " + Day21.getPart01(readInput("./input_day21.txt")));
+    System.out.println("Day 21 Part 02: " + Day21.getPart02(readInput("./input_day21.txt")));
 
-    //System.out.println("Day 22 Part 01: " + Day22.getPart01(readInput("./input_day22.txt")));
-    //System.out.println("Day 22 Part 02: " + Day22.getPart02(readInput("./input_day22.txt")));
+    System.out.println("Day 22 Part 01: " + Day22.getPart01(readInput("./input_day22.txt")));
+    System.out.println("Day 22 Part 02: " + Day22.getPart02(readInput("./input_day22.txt")));
+    */
 
+    System.out.println("Day 23 Part 01: " + Day23.getPart01(readInput("./input_day23_short.txt")));
   }
 }
