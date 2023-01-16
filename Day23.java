@@ -74,9 +74,12 @@ public class Day23{
     List<Day23Elf> elves = parseElvesPositions(input);
 
     System.out.println(elves.toString());
-    for(int k=0;k<2;k++){
+    for(int k=0;k<10;k++){
       elves = nextRound(elves);
       System.out.println(elves.toString());
+    }
+    return elfListFootprint(elves) - elves.size();
+  }
     }
     return 0;
   }
