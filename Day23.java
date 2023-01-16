@@ -115,7 +115,29 @@ public class Day23{
     }
     return elfListFootprint(elves) - elves.size();
   }
+
+  public static int getPart02(List<String> input){
+    List<Day23Elf> elves = parseElvesPositions(input);
+    List<Day23Elf> elvesNext = null;
+    int rounds = 0;
+    //System.out.println(elfListToString(elves));
+    int moved = Integer.MIN_VALUE;
+    String oldList = elves.toString();
+
+    while(moved != 0){
+      elvesNext = nextRound(elves);
+      rounds++;
+      String newList = elvesNext.toString();
+      //System.out.println(oldList.length() + " " + newList.length());
+
+      System.out.print(rounds + " ");
+      //System.out.println(":\t" + newList);
+      moved = oldList.compareTo(newList);
+      //System.out.println(" (" + moved + ")");
+      elves = elvesNext;
+      oldList = newList;
     }
-    return 0;
+    return rounds;
   }
+
 }
