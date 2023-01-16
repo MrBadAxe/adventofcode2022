@@ -14,7 +14,6 @@ public class Day23{
       for(int col=0;col<width;col++){
         if(input.get(row).charAt(col) == '#'){
           Day23Elf elf = new Day23Elf(new Point(row,col));
-          //System.out.println(elf.toString());
           elves.add(elf);
         }
       }
@@ -71,27 +70,21 @@ public class Day23{
   public static List<Day23Elf> nextRound(List<Day23Elf> elves){
     for(Day23Elf elf : elves){
       elf.propose(elves);
-      //System.out.println(elf.toString());
     }
     for(Day23Elf elf : elves){
       if(elf.getProposedMove() != null && elf.getProposedMove() != elf.currentPos()){
-        //System.out.println("\t" + elf.toString() + "->" + getOtherEntryPoints(elf).toString());
         List<Day23Elf> conflicts = new ArrayList<Day23Elf>();
         conflicts.add(elf);
         for(Point p : getOtherEntryPoints(elf)){
-          //System.out.println(p.toString());
           Day23Elf conflict = elves.indexOf(new Day23Elf(p)) != -1 ? elves.get(elves.indexOf(new Day23Elf(p))) : null;
           if(conflict != null){
-            //System.out.println("\t\t" + conflict.toString());
             if(conflict.getProposedMove() != null && conflict.getProposedMove().equals(elf.getProposedMove())){
               conflicts.add(conflict);
             }
           }
         }
         if(conflicts.size() > 1){
-          //System.out.println("conflict!");
           for(Day23Elf conf : conflicts){
-            //System.out.println(conf.toString());
             conf.reject();
           }
         }
@@ -108,12 +101,8 @@ public class Day23{
   public static int getPart01(List<String> input){
     List<Day23Elf> elves = parseElvesPositions(input);
 
-    //System.out.println(elves.toString());
-    //System.out.println(elfListToString(elves));
     for(int k=0;k<10;k++){
       elves = nextRound(elves);
-      //System.out.println(elves.toString());
-      //System.out.println(elfListToString(elves));
     }
     return elfListFootprint(elves) - elves.size();
   }
@@ -122,7 +111,6 @@ public class Day23{
     List<Day23Elf> elves = parseElvesPositions(input);
     List<Day23Elf> elvesNext = null;
     int rounds = 0;
-    //System.out.println(elfListToString(elves));
     int moved = Integer.MIN_VALUE;
     String oldList = elves.toString();
 
@@ -130,12 +118,7 @@ public class Day23{
       elvesNext = nextRound(elves);
       rounds++;
       String newList = elvesNext.toString();
-      //System.out.println(oldList.length() + " " + newList.length());
-
-      System.out.print(rounds + " ");
-      //System.out.println(":\t" + newList);
       moved = oldList.compareTo(newList);
-      //System.out.println(" (" + moved + ")");
       elves = elvesNext;
       oldList = newList;
     }
