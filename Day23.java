@@ -49,7 +49,7 @@ public class Day23{
       for(int col=colMin;col<=colMax;col++){
         z += (elves.contains(new Day23Elf(new Point(row,col))) ? "#" : ".");
       }
-      z += "\n";
+      z += "|";
     }
     return z;
   }
@@ -71,27 +71,27 @@ public class Day23{
   public static List<Day23Elf> nextRound(List<Day23Elf> elves){
     for(Day23Elf elf : elves){
       elf.propose(elves);
-      System.out.println(elf.toString());
+      //System.out.println(elf.toString());
     }
     for(Day23Elf elf : elves){
-        System.out.println("\t" + elf.toString() + "->" + getOtherEntryPoints(elf).toString());
       if(elf.getProposedMove() != null && elf.getProposedMove() != elf.currentPos()){
+        //System.out.println("\t" + elf.toString() + "->" + getOtherEntryPoints(elf).toString());
         List<Day23Elf> conflicts = new ArrayList<Day23Elf>();
         conflicts.add(elf);
         for(Point p : getOtherEntryPoints(elf)){
-          System.out.println(p.toString());
+          //System.out.println(p.toString());
           Day23Elf conflict = elves.indexOf(new Day23Elf(p)) != -1 ? elves.get(elves.indexOf(new Day23Elf(p))) : null;
           if(conflict != null){
-            System.out.println("\t\t" + conflict.toString());
+            //System.out.println("\t\t" + conflict.toString());
             if(conflict.getProposedMove() != null && conflict.getProposedMove().equals(elf.getProposedMove())){
               conflicts.add(conflict);
             }
           }
         }
         if(conflicts.size() > 1){
-          System.out.println("conflict!");
+          //System.out.println("conflict!");
           for(Day23Elf conf : conflicts){
-            System.out.println(conf.toString());
+            //System.out.println(conf.toString());
             conf.reject();
           }
         }
@@ -108,10 +108,12 @@ public class Day23{
   public static int getPart01(List<String> input){
     List<Day23Elf> elves = parseElvesPositions(input);
 
-    System.out.println(elves.toString());
+    //System.out.println(elves.toString());
+    //System.out.println(elfListToString(elves));
     for(int k=0;k<10;k++){
       elves = nextRound(elves);
-      System.out.println(elves.toString());
+      //System.out.println(elves.toString());
+      //System.out.println(elfListToString(elves));
     }
     return elfListFootprint(elves) - elves.size();
   }
