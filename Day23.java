@@ -39,8 +39,8 @@ public class Day23{
       System.out.println(elf.toString());
     }
     for(Day23Elf elf : elves){
-      if(elf.getProposedMove() != null){
         System.out.println("\t" + elf.toString() + "->" + getOtherEntryPoints(elf).toString());
+      if(elf.getProposedMove() != null && elf.getProposedMove() != elf.currentPos()){
         List<Day23Elf> conflicts = new ArrayList<Day23Elf>();
         conflicts.add(elf);
         for(Point p : getOtherEntryPoints(elf)){
