@@ -33,6 +33,41 @@ public class Day23{
     return z;
   }
 
+  public static String elfListToString(List<Day23Elf> elves){
+    int rowMin = 0;
+    int rowMax = 0;
+    int colMin = 0;
+    int colMax = 0;
+    for(Day23Elf elf : elves){
+      rowMin = Math.min(rowMin, elf.currentPos().getX());
+      rowMax = Math.max(rowMax, elf.currentPos().getX());
+      colMin = Math.min(colMin, elf.currentPos().getY());
+      colMax = Math.max(colMax, elf.currentPos().getY());
+    }
+    String z = "";
+    for(int row=rowMin;row<=rowMax;row++){
+      for(int col=colMin;col<=colMax;col++){
+        z += (elves.contains(new Day23Elf(new Point(row,col))) ? "#" : ".");
+      }
+      z += "\n";
+    }
+    return z;
+  }
+
+  public static int elfListFootprint(List<Day23Elf> elves){
+    int rowMin = 0;
+    int rowMax = 0;
+    int colMin = 0;
+    int colMax = 0;
+    for(Day23Elf elf : elves){
+      rowMin = Math.min(rowMin, elf.currentPos().getX());
+      rowMax = Math.max(rowMax, elf.currentPos().getX());
+      colMin = Math.min(colMin, elf.currentPos().getY());
+      colMax = Math.max(colMax, elf.currentPos().getY());
+    }
+    return ((rowMax - rowMin) + 1) * ((colMax - colMin) + 1);
+  }
+
   public static List<Day23Elf> nextRound(List<Day23Elf> elves){
     for(Day23Elf elf : elves){
       elf.propose(elves);
