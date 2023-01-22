@@ -30,6 +30,12 @@ public class Day24BlizzardField{
   public void set(int row, int col, int val){
     field[row][col] = val;
   }
+  public int rows(){
+    return HEIGHT;
+  }
+  public int cols(){
+    return WIDTH;
+  }
 
   public String toString(){
     String z = "";
