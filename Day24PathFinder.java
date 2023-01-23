@@ -34,6 +34,7 @@ public class Day24PathFinder{
   public static int[][] solve(Day24BlizzardField initState, Point start, Point end){
 
     int[][] distances = new int[initState.rows()][initState.cols()];
+    List<Point> points = new ArrayList<Point>();
 
     for(int row=0;row<distances.length;row++){
       for(int col=0;col<distances[0].length;col++){
@@ -46,8 +47,14 @@ public class Day24PathFinder{
     }
     distances[start.getX()][start.getY()] = 0;
     distances[end.getX()][end.getY()] = Integer.MAX_VALUE;
+    points.add(start);
 
     Day24BlizzardField[] fields = precomputeFields(initState);
+
+    while(points.size() > 0){
+      System.out.println(points.toString());
+      Point p = points.remove(0);
+      System.out.println(p.toString() + " " + distances[p.getX()][p.getY()]);
     }
 
     return distances;
