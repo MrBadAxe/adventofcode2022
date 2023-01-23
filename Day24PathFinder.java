@@ -37,7 +37,7 @@ public class Day24PathFinder{
 
     for(int row=0;row<distances.length;row++){
       for(int col=0;col<distances[0].length;col++){
-        if(row == 0 || row == distances.length || col == 0 || col == distances[0].length){
+        if(row == 0 || row == (distances.length-1) || col == 0 || col == (distances[0].length-1)){
           distances[row][col] = -1;
         }else{
           distances[row][col] = Integer.MAX_VALUE;
