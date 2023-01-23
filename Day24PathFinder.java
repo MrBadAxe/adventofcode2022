@@ -43,9 +43,9 @@ public class Day24PathFinder{
           distances[row][col] = Integer.MAX_VALUE;
         }
       }
-      distances[start.getX()][start.getY()] = 0;
-      distances[end.getX()][end.getY()] = Integer.MAX_VALUE;
     }
+    distances[start.getX()][start.getY()] = 0;
+    distances[end.getX()][end.getY()] = Integer.MAX_VALUE;
 
     Day24BlizzardField[] fields = precomputeFields(initState);
     }
