@@ -1,3 +1,6 @@
+import java.util.List;
+import java.util.ArrayList;
+
 public class Day24PathFinder{
 
   private static int lcm(int a, int b){
@@ -18,6 +21,16 @@ public class Day24PathFinder{
     }
     return fields;
   }
+
+  private static List<Point> getNeighbors(Point p){
+    List<Point> neighbors = new ArrayList<Point>();
+    neighbors.add(new Point(p.getX()-1,p.getY()));
+    neighbors.add(new Point(p.getX()+1,p.getY()));
+    neighbors.add(new Point(p.getX(),p.getY()-1));
+    neighbors.add(new Point(p.getX(),p.getY()+1));
+    return neighbors;
+  }
+
   public static int[][] solve(Day24BlizzardField initState, Point start, Point end){
 
     int[][] distances = new int[initState.rows()][initState.cols()];
